@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nausica Segouin-Fouquet — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #3a3a3a;
+    --ink-muted: #888;
+    --bg: #FAFAF8;
+    --bg-alt: #F3F1ED;
+    --gold: #A8834A;
+    --gold-light: rgba(168,131,74,0.1);
+    --border: rgba(20,20,20,0.08);
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── CURSOR ── */
+  * { cursor: default; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem clamp(2rem, 6vw, 5rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 72px;
+  }
+
+  .hero-left {
+    padding: clamp(3rem, 8vw, 7rem) clamp(2rem, 6vw, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.2s ease forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s ease forwards;
+  }
+  .hero-name span { display: block; }
+  .hero-name .last { font-style: italic; color: var(--gold); }
+
+  .hero-title {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-top: 1.5rem;
+    line-height: 1.8;
+    max-width: 360px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+
+  .hero-rhythm {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
+    background: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s ease forwards;
+  }
+  .hero-rhythm span {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .hero-rhythm strong {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--gold);
+  }
+
+  .hero-contacts {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s ease forwards;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-row:hover { color: var(--gold); }
+  .contact-icon {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .contact-row:hover .contact-icon {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-right {
+    background: var(--bg-alt);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 4rem);
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.9s ease forwards;
+  }
+
+  .hero-stat-group { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .stat-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 60px;
+  }
+  .stat-info {}
+  .stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.2rem;
+  }
+  .stat-detail {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: clamp(4rem, 8vw, 7rem) clamp(2rem, 6vw, 5rem);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── EXPERIENCES ── */
+  #experiences { background: var(--white); }
+
+  .exp-grid {
+    display: grid;
+    gap: 0;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .exp-item.visible { opacity: 1; transform: translateY(0); }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta {
+    padding-top: 0.15rem;
+  }
+  .exp-date {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .exp-company {
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .exp-location {
+    font-size: 0.65rem;
+    color: var(--ink-muted);
+    opacity: 0.6;
+    margin-top: 0.2rem;
+  }
+
+  .exp-content {}
+  .exp-role {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.6rem;
+  }
+  .exp-desc {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    line-height: 1.85;
+  }
+
+  /* ── PROJECTS ── */
+  #projets { background: var(--bg); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s;
+  }
+  .project-card.visible { opacity: 1; transform: translateY(0); }
+  .project-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.07); transform: translateY(-3px); }
+  .project-card.featured { border-left: 3px solid var(--gold); }
+  .project-card.featured:nth-child(2) { transition-delay: 0.1s; }
+  .project-card.featured:nth-child(3) { transition-delay: 0.2s; }
+
+  .project-tag {
+    font-size: 0.52rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .project-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.7rem;
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(168,131,74,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .project-link:hover { border-color: var(--gold); }
+
+  /* ── COMPETENCES ── */
+  #competences { background: var(--bg-alt); }
+
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .skills-group {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .skills-group.visible { opacity: 1; transform: translateY(0); }
+  .skills-group:nth-child(2) { transition-delay: 0.1s; }
+  .skills-group:nth-child(3) { transition-delay: 0.2s; }
+
+  .skills-group-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Language bars */
+  .lang-item {
+    margin-bottom: 1.2rem;
+  }
+  .lang-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.4rem;
+  }
+  .lang-name { font-size: 0.8rem; font-weight: 400; }
+  .lang-level { font-size: 0.58rem; letter-spacing: 0.15em; color: var(--ink-muted); text-transform: uppercase; }
+  .lang-bar {
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .lang-fill {
+    height: 100%;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s ease;
+    border-radius: 1px;
+  }
+  .lang-fill.animate { transform: scaleX(1); }
+
+  /* Skills tags */
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .skill-tag {
+    font-size: 0.62rem;
+    color: var(--ink-soft);
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Interests */
+  .interest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .interest-item {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+  .interest-icon {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-top: 0.45rem;
+    flex-shrink: 0;
+  }
+  .interest-text { font-size: 0.75rem; color: var(--ink-soft); line-height: 1.6; }
+  .interest-text strong { font-weight: 500; color: var(--ink); }
+
+  /* ── FORMATION ── */
+  #formation { background: var(--white); }
+
+  .formation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+  }
+
+  .formation-card {
+    background: var(--bg);
+    padding: 2rem;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s;
+  }
+  .formation-card.visible { opacity: 1; transform: translateY(0); }
+  .formation-card:hover { border-left-color: var(--gold); }
+  .formation-card:nth-child(2) { transition-delay: 0.1s; }
+  .formation-card:nth-child(3) { transition-delay: 0.2s; }
+
+  .formation-period {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .formation-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+  }
+  .formation-school {
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.8rem;
+  }
+  .formation-desc {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+
+  /* ── FOOTER / CTA ── */
+  #contact {
+    background: var(--ink);
+    color: rgba(250,250,248,0.9);
+    padding: clamp(4rem, 8vw, 7rem) clamp(2rem, 6vw, 5rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-sub {
+    font-size: 0.75rem;
+    color: rgba(250,250,248,0.5);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 2rem;
+    background: var(--gold);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: opacity 0.2s;
+  }
+  .cta-btn:hover { opacity: 0.85; }
+
+  .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .cta-link-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(250,250,248,0.08);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .cta-link-item:hover { border-color: var(--gold); background: rgba(168,131,74,0.05); }
+  .cta-link-icon {
+    width: 38px; height: 38px;
+    border: 1px solid rgba(168,131,74,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .cta-link-text {}
+  .cta-link-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(250,250,248,0.35);
+    margin-bottom: 0.2rem;
+  }
+  .cta-link-name {
+    font-size: 0.8rem;
+    color: rgba(250,250,248,0.8);
+    font-weight: 400;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .skills-layout { grid-template-columns: 1fr; }
+    #contact { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Nausica Segouin--Fouquet</div>
+  <ul class="nav-links">
+    <li><a href="#experiences">Expériences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio · Alternance Commerce International du Luxe</p>
+    <h1 class="hero-name">
+      <span>Nausica</span>
+      <span class="last">Segouin--Fouquet</span>
+    </h1>
+    <p class="hero-title">
+      Future étudiante en Mastère Commerce International du Luxe · ESG Paris<br>
+      Actuellement en dernière année en Langues Étrangères Appliquées/ Commerce international · Université Rennes 2<br>
+      Disponible en alternance dès <strong>septembre 2026 </strong>
+    </p>
+    <div class="hero-rhythm">
+      <span>Rythme</span>
+      <strong>3 jours entreprise · 24 mois</strong>
+    </div>
+    <div class="hero-contacts">
+      <a href="mailto:nausicafouquet@gmail.com" class="contact-row">
+        <div class="contact-icon">@</div>
+        nausicafouquet@gmail.com
+      </a>
+      <a href="tel:0674091900" class="contact-row">
+        <div class="contact-icon">☏</div>
+        06 74 09 19 00
+      </a>
+      <a href="https://www.linkedin.com/in/nausica-segouin-fouquet-984771366/" target="_blank" class="contact-row">
+        <div class="contact-icon">in</div>
+        Nausica Segouin--Fouquet
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stat-group">
+      <div class="stat-row">
+        <div class="stat-num">4</div>
+        <div class="stat-info">
+          <div class="stat-label">Langues maîtrisées</div>
+          <div class="stat-detail">Français Maternelle· Anglais C1 · Espagnol B2 · Italien A2</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">2</div>
+        <div class="stat-info">
+          <div class="stat-label">Certifications</div>
+          <div class="stat-detail">Inside LVMH · Cambridge B2 (C1 actuel)</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">1</div>
+        <div class="stat-info">
+          <div class="stat-label">Passion savoir-faire d'excellence</div>
+          <div class="stat-detail">Mode, joaillerie, horlogerie</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">黒帯</div>
+        <div class="stat-info">
+          <div class="stat-label">Judo — Ceinture noire</div>
+          <div class="stat-detail">Discipline · Rigueur · Persévérance · Esprit de compétition</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCES ═══ -->
+<section id="experiences">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Expériences <em>professionnelles</em></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="exp-grid">
+
+    <div class="exp-item scroll-reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Mai — Juil. 2026</div>
+        <div class="exp-company">Martin-Pouret</div>
+        <div class="exp-location">Boigny-sur-Bionne</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Assistante Export & Administration des Ventes</div>
+        <div class="exp-desc">Gestion complète du cycle de vente (50% France, 50% International) : saisie des commandes, suivi de facturation, prospection. Établissement de la documentation export. Participation à la stratégie marketing et mise à jour des supports de communication. Veille concurrentielle et gestion du SAV.</div>
+      </div>
+    </div>
+
+    <div class="exp-item scroll-reveal">
+      <div class="exp-meta">
+        <div class="exp-date">2025 — 2026</div>
+        <div class="exp-company">Université Rennes 2</div>
+        <div class="exp-location">Rennes</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Tutrice - Cours de méthodologie professionnelle (L1 LEA)</div>
+        <div class="exp-desc">Accompagnement de groupes de 15 à 30 étudiants dans l'acquisition des méthodes de travail universitaire et professionnel. Conception et animation d'ateliers sur la recherche documentaire et la structuration de dossiers professionnels.</div>
+      </div>
+    </div>
+
+    <div class="exp-item scroll-reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Sept. 2024 — Août 2026</div>
+        <div class="exp-company">Université Rennes 2</div>
+        <div class="exp-location">Rennes</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Représentante de Licence — L2 & L3 LEA-CI</div>
+        <div class="exp-desc">Médiation entre les étudiants et l'administration universitaire. Négociation de solutions pédagogiques et logistiques en conseil de département. Développement d'une communication persuasive et stratégique.</div>
+      </div>
+    </div>
+
+    <div class="exp-item scroll-reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Mars 2024</div>
+        <div class="exp-company">Maison Cartier</div>
+        <div class="exp-location">Rennes</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Rencontre professionnelle — Direction Développement International Qualité Achat</div>
+        <div class="exp-desc">Entretien métier approfondi avec la directrice développement international Qualité Achat. Acquisition de connaissances sur les cycles d'approvisionnement des matières précieuses, les standards qualité du luxe et les enjeux de la supply chain internationale.</div>
+      </div>
+    </div>
+
+    <div class="exp-item scroll-reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Depuis 2024</div>
+        <div class="exp-company">Carrefour Supply Chain</div>
+        <div class="exp-location">Le Rheu</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Préparatrice de commandes — Job étudiant</div>
+        <div class="exp-desc">Travail de nuit, vendredis et vacances scolaires. Rigueur opérationnelle, gestion des flux logistiques, adaptation aux cadences intensives.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PROJETS ═══ -->
+<section id="projets">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projets & <em>réalisations</em></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card featured scroll-reveal">
+      <div class="project-tag">Horlogerie · Création digitale</div>
+      <div class="project-name">Présentation de marque SERICA</div>
+      <div class="project-desc">Page web interactive présentant l'histoire, les collections et l'ADN de SERICA. Accompagnée d'un benchmark et d'une stratégie de contenu Instagram.</div>
+      <span class="project-link" style="cursor:default;opacity:0.5">Projet sur demande</span>
+    </div>
+
+    <div class="project-card featured scroll-reveal">
+      <div class="project-tag">Innovation · Luxe · IA générative</div>
+      <div class="project-name">L'Oréal Brandstorm 2026 — SENS-AURA</div>
+      <div class="project-desc">Conception d'un projet d'innovation pour L'Oréal Luxe : SENS-AURA, une huile de parfum adaptative inclusive pour peaux atopiques. Élaboration du Business Case, définition des KPIs, pitch visuel et campagne via outils d'IA générative et Adobe Express.</div>
+      <span class="project-link" style="cursor:default;opacity:0.5">Projet confidentiel</span>
+    </div>
+
+    <div class="project-card featured scroll-reveal">
+      <div class="project-tag">Certification · Luxe</div>
+      <div class="project-name">Certificat INSIDE LVMH</div>
+      <div class="project-desc">Expertise acquise en Création & Branding et Opérations & Supply Chain. Analyse de l'ADN de marque, stratégies de désirabilité, pilotage de supply chain agile et enjeux de durabilité dans le secteur du luxe.</div>
+      <span class="project-link" style="cursor:default;color:var(--gold);border:none">Novembre 2025 ✓</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ COMPETENCES ═══ -->
+<section id="competences">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Compétences & <em>langues</em></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-layout">
+
+    <div class="skills-group scroll-reveal">
+      <div class="skills-group-title">Langues</div>
+      <div class="lang-item">
+        <div class="lang-top"><span class="lang-name">Français</span><span class="lang-level">Maternel</span></div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-top"><span class="lang-name">Anglais</span><span class="lang-level">C1</span></div>
+        <div class="lang-bar"><div class="lang-fill" style="width:85%"></div></div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-top"><span class="lang-name">Espagnol</span><span class="lang-level">B2</span></div>
+        <div class="lang-bar"><div class="lang-fill" style="width:65%"></div></div>
+      </div>
+      <div class="lang-item">
+        <div class="lang-top"><span class="lang-name">Italien</span><span class="lang-level">A2</span></div>
+        <div class="lang-bar"><div class="lang-fill" style="width:30%"></div></div>
+      </div>
+    </div>
+
+    <div class="skills-group scroll-reveal">
+      <div class="skills-group-title">Compétences</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Commerce international</span>
+        <span class="skill-tag">Marketing du luxe</span>
+        <span class="skill-tag">Branding</span>
+        <span class="skill-tag">Supply chain</span>
+        <span class="skill-tag">Veille concurrentielle</span>
+        <span class="skill-tag">Communication stratégique</span>
+        <span class="skill-tag">Négociation interculturelle</span>
+        <span class="skill-tag">Réseaux sociaux</span>
+        <span class="skill-tag">Canva · Adobe Express</span>
+        <span class="skill-tag">Excel · PowerPoint</span>
+        <span class="skill-tag">IA générative</span>
+        <span class="skill-tag">Prise de parole</span>
+        <span class="skill-tag">Gestion de projet</span>
+        <span class="skill-tag">Analyse de données</span>
+      </div>
+    </div>
+
+    <div class="skills-group scroll-reveal">
+      <div class="skills-group-title">Intérêts & personnalité</div>
+      <div class="interest-list">
+        <div class="interest-item">
+          <div class="interest-icon"></div>
+          <div class="interest-text"><strong>Judo — Ceinture noire</strong> · Pratique de haut niveau, discipline, persévérance et esprit de compétition</div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-icon"></div>
+          <div class="interest-text"><strong>Horlogerie</strong> · Passion pour les manufactures indépendantes et le design d'instrument</div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-icon"></div>
+          <div class="interest-text"><strong>Voyage & cultures</strong> · Attrait pour la découverte de nouvelles cultures, langues et arts de vivre</div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-icon"></div>
+          <div class="interest-text"><strong>Musique</strong> · Intérêt pour la découverte musicale et la diversité des genres</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FORMATION ═══ -->
+<section id="formation">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Formations <em>académiques</em></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="formation-grid">
+
+    <div class="formation-card scroll-reveal">
+      <div class="formation-period">2026 — 2028</div>
+      <div class="formation-title">Mastère Commerce International du Luxe</div>
+      <div class="formation-school">ESG Luxe · Paris</div>
+      <div class="formation-desc">Stratégies de développement international des maisons de luxe. Marketing du luxe, branding, distribution sélective et relation client haut de gamme.</div>
+    </div>
+
+    <div class="formation-card scroll-reveal">
+      <div class="formation-period">2023 — 2026</div>
+      <div class="formation-title">Licence LEA — Anglais & Espagnol · Commerce international</div>
+      <div class="formation-school">Université Rennes 2 · Rennes</div>
+      <div class="formation-desc">Formation pluridisciplinaire associant langues étrangères, commerce international, économie, marketing et droit. Négociation interculturelle et communication professionnelle.</div>
+    </div>
+
+    <div class="formation-card scroll-reveal">
+      <div class="formation-period">2020 — 2023</div>
+      <div class="formation-title">Baccalauréat Général — SES & LLCER (AMC)</div>
+      <div class="formation-school">Lycée Bertrand d'Argentré · Vitré · Mention Bien</div>
+      <div class="formation-desc">Spécialités SES & Langues Littératures et Cultures Étrangères. Option DNL SES-Anglais. Certification Cambridge B2.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CONTACT / CTA ═══ -->
+<section id="contact">
+  <div>
+    <h2 class="cta-title">Travaillons<br><em>ensemble</em></h2>
+    <p class="cta-sub">Disponible en alternance dès septembre 2026 · 3 jours en entreprise · 24 mois · Mobilité Paris.</p>
+    <a href="mailto:nausicafouquet@gmail.com" class="cta-btn">Me contacter →</a>
+    </div>
+    
+    <a href="https://www.linkedin.com/in/nausica-segouin-fouquet-984771366/" target="_blank" class="cta-link-item">
+      <div class="cta-link-icon">in</div>
+      <div class="cta-link-text">
+        <div class="cta-link-label">LinkedIn</div>
+        <div class="cta-link-name">Nausica Segouin-Fouquet →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<script>
+  // Scroll reveal
+  const revealItems = document.querySelectorAll('.scroll-reveal');
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealItems.forEach(el => revealObs.observe(el));
+
+  // Language bar animation
+  const barItems = document.querySelectorAll('.lang-fill');
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('animate'), 200);
+        barObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  barItems.forEach(b => barObs.observe(b));
+</script>
+</body>
+</html>
